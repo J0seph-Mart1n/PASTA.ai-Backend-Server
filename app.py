@@ -22,13 +22,13 @@ finance_agent = Agent(
     name = "Fianace AI Agent",
     model = Groq(id="llama-3.3-70b-versatile"),
     tools = [YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
-    instructions = ["Use tables to display the data"],
+    instructions = ["Give answer in the form of chat messages"],
 )
 
 multi_ai_agent = Agent(
     team=[web_search_agent, finance_agent],
     model=Groq(id="llama-3.3-70b-versatile"),
-    instructions=["Always include sources","Use table to display the data"],
+    instructions=["Always include sources","Give answer in the form of chat messages"],
     show_tool_calls=True,
     markdown=True,
 )
