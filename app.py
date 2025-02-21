@@ -35,7 +35,7 @@ multi_ai_agent = Agent(
 
 
 
-@app.get("/get_stock_content/{query}")
+@app.get("/get_stock_content/<query>")
 def get_stock_info(query):
     """
     Fetches stock-related information using the multi-agent AI system.
