@@ -18,11 +18,23 @@ web_search_agent = Agent(
     markdown = True
 )
 
+fitness_agent = Agent(
+    name = 'Fitness AI Agent',
+    role = 'Provide fitness and nutrition advice for the user.',
+    model = Groq(id="llama-3.3-70b-versatile"),
+    tools = [DuckDuckGo()],
+    instructions = ["Give calories of the food items",
+                    "Provide Fitness advices like exercises",
+                    "Give nutritional advice if the user asks for it like diet plans.",
+                    "Give answers in the form of chat messages"]
+)
+
 finance_agent = Agent(
-    name = "Fianace AI Agent",
+    name = "Finance AI Agent",
     model = Groq(id="llama-3.3-70b-versatile"),
     tools = [YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
-    instructions = ["Give answer in the form of chat messages"],
+    instructions = ["Give answer in the form of chat messages",
+                    "Give financial advice like investment plans, stock prices, etc."],
 )
 
 multi_ai_agent = Agent(
@@ -33,14 +45,21 @@ multi_ai_agent = Agent(
     markdown=True,
 )
 
-
-
 @app.get("/get_stock_content/<query>")
 def get_stock_info(query):
     """
     Fetches stock-related information using the multi-agent AI system.
     """
     response : RunResponse = finance_agent.run(query)
+    print(response.content)
+    return {'response': response.content}
+
+@app.get("/get_fitness_content/<query>")
+def get_fitness_info(query):
+    """
+    Fetches fitness-related information using the multi-agent AI system.
+    """
+    response : RunResponse = fitness_agent.run(query)
     print(response.content)
     return {'response': response.content}
 
