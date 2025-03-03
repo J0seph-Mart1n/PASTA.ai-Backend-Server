@@ -26,7 +26,8 @@ fitness_agent = Agent(
     instructions = ["Give calories of the food items",
                     "Provide Fitness advices like exercises",
                     "Give nutritional advice if the user asks for it like diet plans.",
-                    "Give answers in the form of chat messages"]
+                    "Give answers in the form of chat messages",
+                    "If prompt is not related to fitness, then give a message saying that the prompt is not related to fitness."]
 )
 
 finance_agent = Agent(
@@ -34,7 +35,8 @@ finance_agent = Agent(
     model = Groq(id="llama-3.3-70b-versatile"),
     tools = [YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
     instructions = ["Give answer in the form of chat messages",
-                    "Give financial advice like investment plans, stock prices, etc."],
+                    "Give financial advice like investment plans, stock prices, etc.",
+                    "If prompt is not relevent to finance, then give a message saying that the prompt is not related to finance."],
 )
 
 multi_ai_agent = Agent(
